@@ -102,8 +102,11 @@
   .sheet h2{margin:0;font:400 14px/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
   .sheet p{margin:0;font-size:13px;line-height:1.5;color:var(--muted);max-width:34ch}
   .sheet .actions{max-width:320px}
-  #qr{background:#fff;padding:12px;border-radius:12px;line-height:0}
-  #qr img,#qr canvas{width:180px;height:180px}
+  #qr{position:relative;background:#f5efe1;padding:14px;border-radius:14px;line-height:0;
+    box-shadow:0 0 0 2px var(--gold)}
+  #qr img,#qr canvas{width:190px;height:190px}
+  #qrLogo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;padding:7px 9px;
+    background:#f5efe1;border-radius:10px}
   .steps{margin:0;padding:0;list-style:none;display:grid;gap:10px;text-align:left;width:100%;max-width:320px;counter-reset:s}
   .steps li{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.4;color:var(--ink);counter-increment:s}
   .steps li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
@@ -180,7 +183,7 @@
 <div class="sheet" id="shareSheet" hidden>
   <div class="sheet-inner" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
     <h2 id="shareTitle">Scan to connect</h2>
-    <div id="qr" aria-label="QR code linking to this card"></div>
+    <div id="qr" aria-label="QR code linking to this card"><img id="qrLogo" src="mark.png" alt="" hidden></div>
     <p>Point a phone camera at the code to open this card.</p>
     <div class="actions">
       <button class="btn primary" type="button" id="nativeShareBtn">Send link</button>
@@ -254,14 +257,15 @@ const DEFAULTS = {
   linkedin:  "https://www.linkedin.com/in/marcellolopezjr/",
   address:   "Depew, NY 14043",
   note:      "Professional digital solutions for local business.",
-  badge:     "Available"   // small tag on the photo; leave "" to hide it
+  badge:     "Available",  // small tag on the photo; leave "" to hide it
+  cardLink:  "https://card.celyumdigitalsolutions.com/"  // the address the QR code and saved contact point to
 };
 /* ===================================================================== */
 
 const $ = s => document.querySelector(s);
 const toast = $('#toast'); let tt;
 function say(msg){ toast.textContent = msg; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(()=>toast.classList.remove('show'), 2400); }
-const cardURL = location.href.split('#')[0].split('?')[0];
+const cardURL = (DEFAULTS.cardLink || '').trim() || location.href.split('#')[0].split('?')[0];
 
 const STORE = 'celyum-card-edits';
 function savedEdits(){ try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch { return {}; } }
@@ -316,7 +320,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); 
 /* Share + QR */
 let qrMade = false;
 $('#shareBtn').addEventListener('click', () => {
-  if (!qrMade && window.QRCode) { new QRCode($('#qr'), {text: cardURL, width: 360, height: 360, colorDark: '#0c0b09', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M}); qrMade = true; }
+  if (!qrMade && window.QRCode) {
+    new QRCode($('#qr'), {text: cardURL, width: 380, height: 380, colorDark: '#141210', colorLight: '#f5efe1', correctLevel: QRCode.CorrectLevel.H});
+    const logo = $('#qrLogo'); $('#qr').appendChild(logo); logo.hidden = false;   // high error correction keeps it scannable behind the logo
+    qrMade = true;
+  }
   open($('#shareSheet'));
 });
 $('#nativeShareBtn').addEventListener('click', async () => {
@@ -386,7 +394,8 @@ const FIELDS = [
   ['linkedin','LinkedIn','Full profile link'],
   ['address','Address','Opens in Maps'],
   ['note','Tagline','Saved with the contact'],
-  ['badge','Photo tag','Small tag on the photo — empty hides it']
+  ['badge','Photo tag','Small tag on the photo — empty hides it'],
+  ['cardLink','Card web address','Where the QR code and saved contact point']
 ];
 const form = $('#fields');
 FIELDS.forEach(([k, label, hint]) => {
