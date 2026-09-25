@@ -104,9 +104,9 @@
   .sheet .actions{max-width:320px}
   #qr{position:relative;background:#f5efe1;padding:14px;border-radius:14px;line-height:0;
     box-shadow:0 0 0 2px var(--gold)}
-  #qr img,#qr canvas{width:190px;height:190px}
-  #qrLogo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;padding:7px 9px;
-    background:#f5efe1;border-radius:10px}
+  #qr img:not(#qrLogo),#qr canvas{width:190px;height:190px;display:block}
+  #qr #qrLogo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:auto;
+    padding:7px 9px;background:#f5efe1;border-radius:10px}
   .steps{margin:0;padding:0;list-style:none;display:grid;gap:10px;text-align:left;width:100%;max-width:320px;counter-reset:s}
   .steps li{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.4;color:var(--ink);counter-increment:s}
   .steps li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;

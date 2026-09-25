@@ -1,6 +1,6 @@
 // Keeps the card working offline once it's been opened (or added to the home screen).
 // Bump VERSION whenever you change any file so phones pick up the update.
-const VERSION = 'card-v1';
+const VERSION = 'card-v2';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'qrcode.min.js', 'poster.jpg', 'mark.png', 'wordmark.png',
   'contact-photo.jpg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
