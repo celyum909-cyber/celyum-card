@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marcelo Lopez Jr. · Celyum Digital</title>
+<meta name="description" content="Digital business card for Marcelo Lopez Jr., CEO of Celyum Digital Solutions.">
+
+<!-- App / home-screen install -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#050505">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Marcelo Lopez">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Link preview when the card is shared in a text or chat -->
+<meta property="og:title" content="Marcelo Lopez Jr. — CEO, Celyum Digital Solutions">
+<meta property="og:description" content="Professional digital solutions for local business.">
+<meta property="og:image" content="contact-photo.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --ground:#050505; --panel:#0c0b09; --gold:#f2b632; --gold-deep:#b97d12; --red:#d3131b;
+    --ink:#f4efe4; --muted:#a39a88; --glass:rgba(255,255,255,.09); --glass-line:rgba(255,255,255,.22);
+    --display:"Michroma","Eurostile","Arial Black",system-ui,sans-serif;
+    --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--ground)}
+  body{margin:0;min-height:100vh;background:var(--ground);color:var(--ink);font-family:var(--body);
+    display:flex;justify-content:center;padding-inline:16px;
+    padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+  .card{position:relative;width:100%;max-width:420px;align-self:flex-start;background:var(--panel);border-radius:22px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(242,182,50,.16),0 30px 80px -20px rgba(211,19,27,.28),0 20px 60px rgba(0,0,0,.7)}
+  /* When opened from the home-screen icon, go edge to edge like an app */
+  @media (display-mode: standalone){ body{padding-inline:0;padding-top:0;padding-bottom:0} .card{max-width:none;border-radius:0;box-shadow:none;min-height:100vh}
+    .stage{padding-top:env(safe-area-inset-top,0px)} }
+
+  .stage{position:relative;aspect-ratio:720/868;max-width:100%;background:#0b1422 url("poster.jpg") center/cover}
+  .stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(5,5,5,.25) 0%,rgba(5,5,5,0) 18%,rgba(5,5,5,0) 55%,rgba(12,11,9,.85) 86%,var(--panel) 100%)}
+  .badge{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:14px;z-index:2;display:flex;align-items:center;gap:7px;
+    font:600 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+    padding:7px 10px;border-radius:999px;background:rgba(0,0,0,.35);border:1px solid var(--glass-line);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .badge i{width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 8px #3ddc84}
+
+  .rail{position:absolute;right:12px;top:50%;transform:translateY(-60%);z-index:3;display:flex;flex-direction:column;gap:10px}
+  .rail a{box-sizing:border-box;cursor:pointer;width:44px;height:44px;border-radius:50%;text-decoration:none;
+    display:grid;place-items:center;color:var(--ink);background:var(--glass);border:1px solid var(--glass-line);
+    backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);
+    transition:transform .18s ease,background .18s ease,border-color .18s ease;position:relative}
+  .rail a:hover{background:rgba(242,182,50,.22);border-color:var(--gold);transform:translateX(-3px)}
+  .rail a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .rail svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .rail a span{position:absolute;right:52px;white-space:nowrap;font:600 11px/1 var(--body);letter-spacing:.06em;
+    padding:6px 9px;border-radius:6px;background:rgba(0,0,0,.7);opacity:0;transform:translateX(6px);pointer-events:none;transition:.18s}
+  .rail a:hover span,.rail a:focus-visible span{opacity:1;transform:none}
+
+  .mark{position:absolute;left:50%;bottom:-6px;z-index:2;width:46%;max-width:190px;transform:translateX(-50%);
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,.6));animation:rise 1.1s cubic-bezier(.2,.8,.2,1) both .2s}
+  @keyframes rise{from{transform:translate(-50%,14px) scale(.94);opacity:.4}to{transform:translate(-50%,0) scale(1);opacity:1}}
+
+  .id{position:relative;z-index:1;display:grid;justify-items:center;gap:18px;text-align:center;padding:22px 22px 26px}
+  .wordmark{width:78%;max-width:300px}
+  .person{display:grid;gap:8px;justify-items:center}
+  .name{margin:0;font:400 clamp(20px,6vw,24px)/1.1 var(--display);letter-spacing:.08em;text-transform:uppercase;
+    background:linear-gradient(100deg,var(--gold-deep) 0%,var(--gold) 35%,#fff1c4 50%,var(--gold) 65%,var(--gold-deep) 100%);
+    background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 6s ease-in-out infinite}
+  @keyframes sheen{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+  .role{display:flex;align-items:center;gap:10px;font:600 11px/1 var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--ink)}
+  .role::before,.role::after{content:"";width:22px;height:2px;background:var(--red);border-radius:2px}
+
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+  .actions .wide{grid-column:1 / -1}
+  .btn{appearance:none;border:0;margin:0;font:700 13px/1.1 var(--body);letter-spacing:.04em;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;padding:13px 10px;border-radius:12px;
+    text-decoration:none;transition:filter .18s,background .18s}
+  .btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .btn.primary{background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:#1a1203}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{background:transparent;border:1px solid rgba(242,182,50,.45);color:var(--gold)}
+  .btn.ghost:hover{background:rgba(242,182,50,.1)}
+  .btn.quiet{background:rgba(255,255,255,.05);color:var(--ink);border:1px solid rgba(255,255,255,.1)}
+  .foot{font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+  .sheet{position:fixed;inset:0;z-index:20;display:grid;place-items:end center;background:rgba(0,0,0,.6);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding-inline:16px}
+  .sheet-inner{width:100%;max-width:420px;background:#12110e;border:1px solid rgba(242,182,50,.25);border-bottom:0;
+    border-radius:20px 20px 0 0;padding:22px 22px calc(22px + env(safe-area-inset-bottom,0px));display:grid;gap:16px;justify-items:center;text-align:center}
+  .sheet h2{margin:0;font:400 14px/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+  .sheet p{margin:0;font-size:13px;line-height:1.5;color:var(--muted);max-width:34ch}
+  .sheet .actions{max-width:320px}
+  #qr{background:#fff;padding:12px;border-radius:12px;line-height:0}
+  #qr img,#qr canvas{width:180px;height:180px}
+  .steps{margin:0;padding:0;list-style:none;display:grid;gap:10px;text-align:left;width:100%;max-width:320px;counter-reset:s}
+  .steps li{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.4;color:var(--ink);counter-increment:s}
+  .steps li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+    font:700 12px/1 var(--body);color:#1a1203;background:var(--gold)}
+  .steps svg{width:18px;height:18px;vertical-align:-4px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .appicon{width:64px;height:64px;border-radius:15px;box-shadow:0 0 0 1px rgba(242,182,50,.3)}
+
+  /* ---------- editor ---------- */
+  .sheet.editor{place-items:center}
+  .editor .sheet-inner{border-radius:20px;border-bottom:1px solid rgba(242,182,50,.25);max-height:88vh;overflow:auto;justify-items:stretch;text-align:left;gap:14px}
+  .editor h2{text-align:center}
+  .editor .lede{text-align:center;justify-self:center}
+  .fields{display:grid;gap:12px}
+  .field{display:grid;gap:5px}
+  .field label{font:600 10px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .field input{font:500 14px/1.3 var(--body);color:var(--ink);background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:11px 12px;width:100%}
+  .field input:focus{outline:none;border-color:var(--gold);background:rgba(242,182,50,.07)}
+  .field .hint{font-size:11px;color:var(--muted)}
+  .editor .actions{position:sticky;bottom:-22px;background:linear-gradient(to top,#12110e 62%,rgba(18,17,14,0));padding-top:12px;padding-bottom:4px}
+  .editkey{position:absolute;inset:0;z-index:4;cursor:default}
+
+  .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);z-index:30;
+    background:#1b1913;color:var(--ink);border:1px solid rgba(242,182,50,.35);padding:10px 14px;border-radius:10px;font-size:13px;
+    opacity:0;transition:.25s;pointer-events:none;max-width:calc(100% - 32px)}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  @media (prefers-reduced-motion:reduce){.mark,.name{animation:none}.rail a{transition:none}}
+</style>
+</head>
+<body>
+
+<main class="card" aria-label="Digital business card">
+  <section class="stage">
+    <video id="vid" src="portrait.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Portrait of Marcelo L."></video>
+    <div class="badge"><i></i>Available</div>
+
+    <nav class="rail" aria-label="Contact shortcuts">
+      <a data-key="phone" aria-label="Call"><span>Call</span>
+        <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></a>
+      <a data-key="message" aria-label="Message"><span>Message</span>
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
+      <a data-key="email" aria-label="Email"><span>Email</span>
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      <a data-key="website" aria-label="Website"><span>Website</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></a>
+      <a data-key="linkedin" aria-label="LinkedIn"><span>LinkedIn</span>
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a>
+      <a data-key="address" aria-label="Location"><span>Location</span>
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></a>
+    </nav>
+
+    <img class="mark" src="mark.png" alt="">
+  </section>
+
+  <section class="id">
+    <img class="wordmark" src="wordmark.png" alt="Celyum Digital — Professional digital solutions for local business.">
+    <div class="person">
+      <h1 class="name" id="name">Marcelo L.</h1>
+      <div class="role" id="title">Chief Executive Officer</div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" type="button" id="saveBtn">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>Save contact</button>
+      <button class="btn ghost" type="button" id="installBtn">
+        <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 8v6M9 11l3 3 3-3"/></svg>Keep this card</button>
+      <button class="btn quiet wide" type="button" id="shareBtn">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 17h4v4h-4"/></svg>Share · show QR code</button>
+    </div>
+    <div class="foot">Share by link · QR code · NFC tap</div>
+  </section>
+</main>
+
+<!-- QR / share sheet -->
+<div class="sheet" id="shareSheet" hidden>
+  <div class="sheet-inner" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+    <h2 id="shareTitle">Scan to connect</h2>
+    <div id="qr" aria-label="QR code linking to this card"></div>
+    <p>Point a phone camera at the code to open this card.</p>
+    <div class="actions">
+      <button class="btn primary" type="button" id="nativeShareBtn">Send link</button>
+      <button class="btn ghost" type="button" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add-to-home-screen instructions (iPhone and browsers without a one-tap install) -->
+<div class="sheet" id="installSheet" hidden>
+  <div class="sheet-inner" role="dialog" aria-modal="true" aria-labelledby="installTitle">
+    <img class="appicon" src="apple-touch-icon.png" alt="">
+    <h2 id="installTitle">Keep this card</h2>
+    <p>Add it to your home screen. It opens full-screen like an app, with Marcelo's details one tap away.</p>
+    <ol class="steps" id="stepsIOS" hidden>
+      <li><span>Tap <b>Share</b> <svg viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> in the browser bar</span></li>
+      <li><span>Scroll and tap <b>Add to Home Screen</b></span></li>
+      <li><span>Tap <b>Add</b></span></li>
+    </ol>
+    <ol class="steps" id="stepsAndroid" hidden>
+      <li><span>Tap the browser menu <b>⋮</b></span></li>
+      <li><span>Tap <b>Add to Home screen</b> or <b>Install app</b></span></li>
+      <li><span>Confirm with <b>Add</b> / <b>Install</b></span></li>
+    </ol>
+    <ol class="steps" id="stepsDesktop" hidden>
+      <li><span>Click the <b>install</b> icon at the right end of the address bar, or</span></li>
+      <li><span>Press <b>Ctrl + D</b> (<b>⌘ + D</b> on Mac) to bookmark it</span></li>
+    </ol>
+    <div class="actions"><button class="btn ghost wide" type="button" data-close>Got it</button></div>
+  </div>
+</div>
+
+<!-- Owner's editor — opens with ?edit in the address, or five quick taps on the logo -->
+<div class="sheet editor" id="editSheet" hidden>
+  <div class="sheet-inner" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <h2 id="editTitle">Edit this card</h2>
+    <p class="lede">Changes show on the card as you type. Save keeps them on this device; Download gives you a new card file to put online for everyone.</p>
+    <div class="fields" id="fields"></div>
+    <div class="actions">
+      <button class="btn primary" type="button" id="saveEdits">Save on this device</button>
+      <button class="btn ghost" type="button" id="downloadEdits">Download new card</button>
+      <button class="btn quiet wide" type="button" id="resetEdits">Undo my changes</button>
+      <button class="btn quiet wide" type="button" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="qrcode.min.js"></script>
+<script>
+/* Snapshot of this file, taken before anything changes — used by the
+   editor to build a fresh copy with new details. Keep this line first. */
+const SOURCE = '<!doctype html>\n' + document.documentElement.outerHTML;
+
+/* =====================================================================
+   CARD DETAILS — the card's own values. You can edit them here by hand,
+   or use the built-in editor (add ?edit to the web address, or tap the
+   logo five times) which rewrites this block for you.
+   Leave a field "" to keep its button as a "coming soon" placeholder.
+   ===================================================================== */
+const DEFAULTS = {
+  firstName: "Marcelo",
+  lastName:  "Lopez Jr.",
+  title:     "Chief Executive Officer",
+  company:   "Celyum Digital",
+  phone:     "+1 716 603 3140",
+  message:   "+1 716 603 3140",   // SMS number, or a WhatsApp link like "https://wa.me/17166033140"
+  email:     "marcelo@celyumdigitalsolutions.com",
+  website:   "https://celyumdigitalsolutions.com",
+  linkedin:  "https://www.linkedin.com/in/marcellolopezjr/",
+  address:   "Depew, NY 14043",
+  note:      "Professional digital solutions for local business.",
+  badge:     "Available"   // small tag on the photo; leave "" to hide it
+};
+/* ===================================================================== */
+
+const $ = s => document.querySelector(s);
+const toast = $('#toast'); let tt;
+function say(msg){ toast.textContent = msg; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(()=>toast.classList.remove('show'), 2400); }
+const cardURL = location.href.split('#')[0].split('?')[0];
+
+const STORE = 'celyum-card-edits';
+function savedEdits(){ try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch { return {}; } }
+let CARD = Object.assign({}, DEFAULTS, savedEdits());
+
+const clean = n => n.replace(/[^\d+]/g, '');
+const hrefFor = {
+  phone:    v => 'tel:' + clean(v),
+  message:  v => /^https?:/.test(v) ? v : 'sms:' + clean(v),
+  email:    v => 'mailto:' + v,
+  website:  v => v,
+  linkedin: v => v,
+  address:  v => 'https://maps.google.com/?q=' + encodeURIComponent(v)
+};
+const labels = {phone:'Phone number', message:'Text / WhatsApp number', email:'Email address', website:'Website', linkedin:'LinkedIn profile', address:'Office address'};
+
+/* Empty buttons stay hidden for visitors; the editor reveals them */
+let showEmpty = false;
+
+/* Paint the card from CARD — called on load and after every edit */
+function applyCard(){
+  $('#name').textContent = `${CARD.firstName} ${CARD.lastName}`.trim() || ' ';
+  $('#title').textContent = CARD.title;
+  const badge = document.querySelector('.badge');
+  badge.hidden = !CARD.badge;
+  badge.lastChild.textContent = CARD.badge || '';
+  document.querySelectorAll('.rail a').forEach(a => {
+    const k = a.dataset.key, v = (CARD[k] || '').trim();
+    a.href = v ? hrefFor[k](v) : '#';
+    a.dataset.empty = v ? '' : '1';
+    a.hidden = !v && !showEmpty;   // visitors only see buttons that lead somewhere
+    if (v && /^https?:/.test(a.href)) { a.target = '_blank'; a.rel = 'noopener'; }
+    else { a.removeAttribute('target'); a.removeAttribute('rel'); }
+  });
+}
+document.querySelector('.rail').addEventListener('click', e => {
+  const a = e.target.closest('a');
+  if (a && a.dataset.empty) { e.preventDefault(); say(`Coming soon — ${labels[a.dataset.key]}`); }
+});
+applyCard();
+
+/* Video: respect reduced motion */
+const vid = $('#vid');
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) { vid.removeAttribute('autoplay'); vid.pause(); } else { vid.play().catch(()=>{}); }
+
+/* Sheets */
+function open(el){ el.hidden = false; el.querySelector('button')?.focus(); }
+function closeAll(){ document.querySelectorAll('.sheet').forEach(s => s.hidden = true); if (showEmpty) { showEmpty = false; applyCard(); } }
+document.querySelectorAll('.sheet').forEach(s => s.addEventListener('click', e => { if (e.target === s || e.target.closest('[data-close]')) closeAll(); }));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+/* Share + QR */
+let qrMade = false;
+$('#shareBtn').addEventListener('click', () => {
+  if (!qrMade && window.QRCode) { new QRCode($('#qr'), {text: cardURL, width: 360, height: 360, colorDark: '#0c0b09', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M}); qrMade = true; }
+  open($('#shareSheet'));
+});
+$('#nativeShareBtn').addEventListener('click', async () => {
+  const data = {title: `${CARD.firstName} ${CARD.lastName} · ${CARD.company}`, text: `${CARD.title}, ${CARD.company}`, url: cardURL};
+  if (navigator.share) { try { await navigator.share(data); } catch {} return; }
+  try { await navigator.clipboard.writeText(cardURL); say('Link copied'); } catch { say('Copy the link from the address bar'); }
+});
+
+/* Save contact — builds a .vcf file the phone opens straight into Contacts */
+const esc = s => String(s).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/([,;])/g,'\\$1');
+async function photoB64(){
+  try { const r = await fetch('contact-photo.jpg'); const b = await r.blob();
+    return await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.readAsDataURL(b); });
+  } catch { return ''; }
+}
+$('#saveBtn').addEventListener('click', async () => {
+  const L = ['BEGIN:VCARD','VERSION:3.0',
+    `N:${esc(CARD.lastName)};${esc(CARD.firstName)};;;`,
+    `FN:${esc((CARD.firstName+' '+CARD.lastName).trim())}`,
+    `ORG:${esc(CARD.company)}`, `TITLE:${esc(CARD.title)}`];
+  if (CARD.phone)    L.push(`TEL;TYPE=CELL,VOICE:${CARD.phone}`);
+  if (CARD.email)    L.push(`EMAIL;TYPE=INTERNET,WORK:${CARD.email}`);
+  if (CARD.website)  L.push(`URL;TYPE=WORK:${CARD.website}`);
+  if (CARD.linkedin) L.push(`X-SOCIALPROFILE;TYPE=linkedin:${CARD.linkedin}`);
+  if (CARD.address)  L.push(`ADR;TYPE=WORK:;;${esc(CARD.address)};;;;`);
+  L.push(`item1.URL:${cardURL}`, 'item1.X-ABLabel:Digital card');
+  if (CARD.note)     L.push(`NOTE:${esc(CARD.note)}`);
+  const p = await photoB64(); if (p) L.push(`PHOTO;ENCODING=b;TYPE=JPEG:${p}`);
+  L.push('END:VCARD');
+  const blob = new Blob([L.join('\r\n')], {type: 'text/vcard;charset=utf-8'});
+  const file = `${CARD.firstName}-${CARD.lastName}`.replace(/[^\w-]+/g,'') + '.vcf';
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  say('Opening contact…');
+});
+
+/* Keep this card — one-tap install where the browser allows it, otherwise show the steps */
+const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const ua = navigator.userAgent;
+const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const isAndroid = /Android/.test(ua);
+let deferred = null;
+if (standalone) $('#installBtn').hidden = true, $('#saveBtn').classList.add('wide');
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; });
+addEventListener('appinstalled', () => { $('#installBtn').hidden = true; $('#saveBtn').classList.add('wide'); say('Card added to your home screen'); });
+$('#installBtn').addEventListener('click', async () => {
+  if (deferred) { deferred.prompt(); const { outcome } = await deferred.userChoice; deferred = null; if (outcome === 'accepted') return; }
+  $('#stepsIOS').hidden = !isIOS; $('#stepsAndroid').hidden = !isAndroid; $('#stepsDesktop').hidden = isIOS || isAndroid;
+  open($('#installSheet'));
+});
+
+/* ---------------------------------------------------------------
+   EDITOR — for the card's owner. Open it with ?edit in the address
+   bar, or by tapping the logo five times. Edits made here live in
+   this browser only; "Download new card" produces the file to put
+   online so everyone sees the change.
+   --------------------------------------------------------------- */
+const FIELDS = [
+  ['firstName','First name',''],
+  ['lastName','Last name',''],
+  ['title','Job title',''],
+  ['company','Company',''],
+  ['phone','Phone','Used by the Call button and Save contact'],
+  ['message','Text or WhatsApp','A number, or a wa.me link'],
+  ['email','Email',''],
+  ['website','Website','Include https://'],
+  ['linkedin','LinkedIn','Full profile link'],
+  ['address','Address','Opens in Maps'],
+  ['note','Tagline','Saved with the contact'],
+  ['badge','Photo tag','Small tag on the photo — empty hides it']
+];
+const form = $('#fields');
+FIELDS.forEach(([k, label, hint]) => {
+  const wrap = document.createElement('div'); wrap.className = 'field';
+  wrap.innerHTML = `<label for="f-${k}">${label}</label><input id="f-${k}" type="text" autocomplete="off">` + (hint ? `<span class="hint">${hint}</span>` : '');
+  form.appendChild(wrap);
+  const input = wrap.querySelector('input');
+  input.addEventListener('input', () => { CARD[k] = input.value; applyCard(); });
+});
+function fillForm(){ FIELDS.forEach(([k]) => { $('#f-' + k).value = CARD[k] || ''; }); }
+
+function openEditor(){ showEmpty = true; applyCard(); fillForm(); open($('#editSheet')); }
+if (/(^|[?&])edit\b/.test(location.search) || location.hash === '#edit') openEditor();
+
+let taps = 0, tapTimer;
+document.querySelector('.mark').addEventListener('click', () => {
+  taps++; clearTimeout(tapTimer); tapTimer = setTimeout(() => taps = 0, 1200);
+  if (taps >= 5) { taps = 0; openEditor(); }
+});
+
+$('#saveEdits').addEventListener('click', () => {
+  const edits = {}; FIELDS.forEach(([k]) => { if ((CARD[k] || '') !== (DEFAULTS[k] || '')) edits[k] = CARD[k]; });
+  try { localStorage.setItem(STORE, JSON.stringify(edits)); say('Saved on this device'); }
+  catch { say('This browser blocked saving — use Download new card'); }
+});
+
+$('#resetEdits').addEventListener('click', () => {
+  try { localStorage.removeItem(STORE); } catch {}
+  CARD = Object.assign({}, DEFAULTS); applyCard(); fillForm(); say('Back to the published details');
+});
+
+$('#downloadEdits').addEventListener('click', () => {
+  const block = 'const DEFAULTS = ' + JSON.stringify(CARD, null, 2) + ';';
+  const out = SOURCE.replace(/const DEFAULTS = \{[\s\S]*?\n\};/, block);
+  if (out === SOURCE) { say('Could not rewrite the file — save on this device instead'); return; }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([out], {type: 'text/html'}));
+  a.download = 'index.html';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  say('Downloaded — upload this file to replace the old one');
+});
+
+/* Offline support + install eligibility */
+if ('serviceWorker' in navigator && location.protocol === 'https:' || location.hostname === 'localhost') {
+  navigator.serviceWorker?.register('sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
