@@ -354,10 +354,28 @@ $('#saveBtn').addEventListener('click', async () => {
   if (CARD.note)     L.push(`NOTE:${esc(CARD.note)}`);
   const p = await photoB64(); if (p) L.push(`PHOTO;ENCODING=b;TYPE=JPEG:${p}`);
   L.push('END:VCARD');
-  const blob = new Blob([L.join('\r\n')], {type: 'text/vcard;charset=utf-8'});
+  const vcard = L.join('\r\n') + '\r\n';
+  const blob = new Blob([vcard], {type: 'text/vcard'});
   const file = `${CARD.firstName}-${CARD.lastName}`.replace(/[^\w-]+/g,'') + '.vcf';
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = file;
-  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+
+  // iPhone/iPad Safari is more reliable when the generated vCard is opened
+  // as a document instead of being forced through the download attribute.
+  const isiOSContact = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const url = URL.createObjectURL(blob);
+
+  if (isiOSContact) {
+    window.location.href = url;
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  } else {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = file;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
   say('Opening contact…');
 });
 
